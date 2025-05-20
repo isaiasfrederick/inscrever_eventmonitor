@@ -13,6 +13,11 @@ $context = context_course::instance($courseid);
 
 echo $OUTPUT->header();
 
+// Verifica se é administrador do site
+if (!is_siteadmin()) {
+    throw new \moodle_exception('nopermissions', 'error', '', 'executar esta ação');
+}
+
 $students = get_enrolled_users($context, '', 0, 'u.id, u.firstname, u.lastname, u.email');
 echo "Curso: " . $courseid;
 echo "Regra: " . $ruleid;
